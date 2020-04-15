@@ -4,7 +4,7 @@
 #include "led.h"
 #include "wdInterruptHandler.h"
 
-char switch3_state_down,switch1_state_down,switch2_state_down, switch0_state_changed,switch1_state_changed,switch2_state_changed; /* effectively boolean */
+char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down, switch_state_changed /* effectively boolean */
 
 static char 
 switch_update_interrupt_sense()
@@ -31,15 +31,21 @@ void
 switch_interrupt_handler()
 {
   char p2val = switch_update_interrupt_sense();
-  switch3_state_down = (p2val & SW3) ? 0 : 1; /* 0 when SW0 is up */
-  //  switch0_state_changed = 0;
+  
+  
+
 
   switch1_state_down = (p2val & SW1) ? 0 : 1; /* 0 when SW1 is up */
-  // switch1_state_changed = 0;
+
 
   switch2_state_down = (p2val & SW2) ? 0 : 1; /* 0 when SW2 is up */
-  //switch2_state_changed = 0;
+
+
+  switch3_state_down = (p2val & SW3) ? 0 : 1; /* 0 when SW3 is up */
+
+      
+  switch4_state_down = (p2val & SW4) ? 0 : 1; /* 0 when SW4 is up */
   
-  buzzer_init();  
-  led_init();
+ 
+  switch1_state_changed = 1;
 }
