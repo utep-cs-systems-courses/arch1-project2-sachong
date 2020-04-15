@@ -11,7 +11,7 @@ AS              = msp430-elf-as
 all: toyMain.elf 
 
 #additional rules for files
-toyMain.elf: ${COMMON_OBJECTS} toyMain.o stateMachines.o led.o switches.o buzzer.o p1_interrupt_handler.o wdInterruptHandler.o ../lib/libTimer.a
+toyMain.elf: ${COMMON_OBJECTS} stateMachines.o led.o switches.o buzzer.o p1_interrupt_handler.o wdInterruptHandler.o toyMain.o ../lib/libTimer.a
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 load: toyMain.elf
