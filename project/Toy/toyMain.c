@@ -4,7 +4,7 @@
 #include "led.h" /* for led_control() */
 #include "switches.h"
 
-void main (void) {
+int main (void) {
   configureClocks(); 
   switch_init();
   led_init();
