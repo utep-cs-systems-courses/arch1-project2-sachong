@@ -2,9 +2,9 @@
 #include "switches.h"
 #include "buzzer.h"
 #include "led.h"
-#include "wdInterruptHandler.h"
 
-char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down, switch_state_changed /* effectively boolean */
+char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down, switch_state_changed;/* effectively boolean */
+char led_toggle_speed;
 
 static char 
 switch_update_interrupt_sense()
@@ -35,17 +35,37 @@ switch_interrupt_handler()
   
 
 
-  switch1_state_down = (p2val & SW1) ? 0 : 1; /* 0 when SW1 is up */
+  switch1_state_down = (p2val & SW0) ? 0 : 1; /* 0 when SW1 is up */
 
 
-  switch2_state_down = (p2val & SW2) ? 0 : 1; /* 0 when SW2 is up */
+  switch2_state_down = (p2val & SW1) ? 0 : 1; /* 0 when SW2 is up */
 
 
-  switch3_state_down = (p2val & SW3) ? 0 : 1; /* 0 when SW3 is up */
+  switch3_state_down = (p2val & SW2) ? 0 : 1; /* 0 when SW3 is up */
 
       
-  switch4_state_down = (p2val & SW4) ? 0 : 1; /* 0 when SW4 is up */
+  switch4_state_down = (p2val & SW3) ? 0 : 1; /* 0 when SW4 is up */
   
  
-  switch1_state_changed = 1;
+  if(switch1_state_down){
+    switch_state_changed = switch1_state_down;
+    led_toggle_speed = 10;
+    led_update();
+  }
+  if(switch2_state_down){
+    led_toggle_speed = 25;
+    switch_state_changed = switch2_state_down;
+    led_update();
+  }
+  if(switch3_state_down){
+    led_toggle_speed = 70;
+    switch_state_changed = switch3_state_down;
+    led_update();
+  }
+  if(switch4_state_down){
+    led_toggle_speed = 85;
+    switch_state_changed = switch4_state_down;
+    led_update();
+  }
+
 }

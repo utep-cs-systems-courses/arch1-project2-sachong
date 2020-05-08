@@ -27,7 +27,7 @@ char toggle_green()	/* only toggle green if red is on!  */
 {
   char changed = 0;
   if (red_on) {
-    green_on ^= 1;
+    green_on = 1;
     changed = 1;
   }
   return changed;
@@ -39,6 +39,7 @@ void state_advance()		/* alternate between toggling red & green */
   switch(state){
       
   case 1: //state 1
+    buzzer_set_period(700);
     green_on = 1;
     red_on = 0;
     state = 1;
@@ -46,6 +47,7 @@ void state_advance()		/* alternate between toggling red & green */
     break;
 
   case 2: // state 2
+    buzzer_set_period(600);
     toggle_red();
     state = 2;
     led_update();

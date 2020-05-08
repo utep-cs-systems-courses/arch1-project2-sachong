@@ -1,6 +1,9 @@
 #include <msp430.h>
+#include "led.h"
 #include "libTimer.h"
+#include "switches.h"
 #include "buzzer.h"
+#include "stateMachines.h"
 #include "switches.h"
 
 static unsigned int period = 1000;
